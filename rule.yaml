@@ -1,0 +1,21 @@
+apiVersion: config.istio.io/v1alpha2
+kind: rule
+metadata:
+  name: authzadaptor-rule
+  namespace: istio-system
+spec:
+  # restrict the rule to the ingress gateway proxy workload only
+  match: context.reporter.kind == "outbound" && source.labels["istio"] == "ingressgateway"
+  actions:
+  - handler: authzadaptor-handler.istio-system
+    instances: ["authzadaptor-instance"]
+    # assign a name to the action
+    name: action
+  requestHeaderOperations:
+  # set "user" header to the output value of action "a1" in the request to httpbin
+  - name: kubeflow-userid
+    values:
+    - action.output.email
+  # remove "key" header from the request
+  #- name: key
+  #  operation: REMOVE

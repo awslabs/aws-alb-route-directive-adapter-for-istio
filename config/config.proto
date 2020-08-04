@@ -1,0 +1,7 @@
+syntax = "proto3";
+import "google/protobuf/duration.proto";
+import "gogoproto/gogo.proto";
+package config;
+message Params {
+  google.protobuf.Duration valid_duration = 1 [(gogoproto.nullable)=false, (gogoproto.stdduration) = true];
+}
