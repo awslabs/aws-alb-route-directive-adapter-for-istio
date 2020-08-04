@@ -1,0 +1,11 @@
+syntax = "proto3";
+package authzadaptor;
+import "mixer/adapter/model/v1beta1/extensions.proto";
+option (istio.mixer.adapter.model.v1beta1.template_variety) = TEMPLATE_VARIETY_CHECK_WITH_OUTPUT;
+message Template {
+  string key = 1;
+  string path = 2;
+}
+message OutputTemplate {
+  string email = 1;
+}
